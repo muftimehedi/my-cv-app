@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\Dashboard\CvController;
+use App\Http\Controllers\PublicCvController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,7 +26,6 @@ Route::middleware([
 });
 
 
-
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
@@ -34,3 +34,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/dashboard/cv', [CvController::class, 'edit'])->name('dashboard.cv.edit');
     Route::post('/dashboard/cv', [CvController::class, 'update'])->name('dashboard.cv.update');
 });
+
+
+Route::get('/cv/{username}', [PublicCvController::class, 'show'])->name('public.cv.show');
