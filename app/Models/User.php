@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne; // Import HasOne
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    // use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
@@ -27,7 +26,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-
         'email',
         'password',
     ];
@@ -66,15 +64,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function cv()
+    // Define the relationship to the Cv model
+    public function cv(): HasOne
     {
-        return $this->hasOne(Cv::class);
+        return $this->hasOne(Cv::class); // A User has one Cv
     }
-
-    public function getRouteKeyName()
-    {
-        return 'username';
-    }
-
-
 }
