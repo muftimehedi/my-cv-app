@@ -64,4 +64,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function cv()
+    {
+        return $this->hasOne(Cv::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
+
 }
