@@ -36,4 +36,3 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 });
 
 
-Route::get('/cv/{username}', [PublicCvController::class, 'show'])->name('public.cv.show');
